@@ -2,9 +2,9 @@
  * @author Adam W Patterson
  */
 
-const { error } = console;
+const { error: errorMsg } = console;
 
-function Context(strategy = { run: () => error('No strategy set!')}) {
+function Context(strategy = null) {
   this.strategy = strategy;
 
   this.setStrategy = (strategy) => {
@@ -12,6 +12,10 @@ function Context(strategy = { run: () => error('No strategy set!')}) {
   }
 
   this.run = () => {
+    if (!this.strategy) {
+      return errorMsg('No Strategy!');
+    }
+
     this.strategy.run();
   }
 }
